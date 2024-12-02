@@ -112,8 +112,8 @@ For more examples see the [Wiki/Examples](https://github.com/bluetiger9/SmtpClie
 To build the project with CMake run the following comamnds:
 ```sh
 $ cmake . -DQt6_DIR="/qt/install/loccation/6.x.x/6.x.x/gcc_64/lib/cmake/Qt6" -DCMAKE_INSTALL_PREFIX="../release"
-$ cmake --build ../
-$ cmake --install ../
+$ cmake --build ./
+$ cmake --install ./
 ```
 
 ### Building with QMake
