@@ -1,23 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
-
-project(SmtpMime VERSION 2.0 LANGUAGES C CXX)
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Network REQUIRED)
-
 add_compile_options(-DSMTP_MIME_LIBRARY)
 
-message(USING Qt${QT_VERSION_MAJOR})
-
-add_library(${PROJECT_NAME} SHARED
+add_library(${LIBRARY_TARGET_NAME} SHARED
     emailaddress.cpp
     mimeattachment.cpp
     mimebytearrayattachment.cpp
@@ -57,14 +40,16 @@ add_library(${PROJECT_NAME} SHARED
     mimebase64formatter.h
     mimecontentformatter.h
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core)
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+
+target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE
+  Qt${QT_VERSION_MAJOR}::Core
+  Qt${QT_VERSION_MAJOR}::Network)
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_INSTALL_RPATH “${ORIGIN}”)
 
-target_include_directories(${PROJECT_NAME}
+target_include_directories(${LIBRARY_TARGET_NAME}
     PRIVATE
         # where the library itself will look for its internal headers
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -99,14 +84,14 @@ set(public_headers
     mimebytearrayattachment.h
 )
 # note that ${public_headers} has to be in quotes
-set_target_properties(${PROJECT_NAME} PROPERTIES
+set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
 	VERSION ${PROJECT_VERSION}
 	SOVERSION ${PROJECT_VERSION_MAJOR}
 	PUBLIC_HEADER "${public_headers}"
 )
 
 include(GNUInstallDirs)
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${LIBRARY_TARGET_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/smtpmime
 )
