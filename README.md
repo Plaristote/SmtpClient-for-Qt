@@ -107,20 +107,30 @@ For more examples see the [Wiki/Examples](https://github.com/bluetiger9/SmtpClie
 
 ## Building
 
-### Building CMake
+### Building with CMake
 
-To build the project with CMake run the following comamnds:
+To build the project with CMake run the following commands:
 ```sh
-$ cmake . -DQt6_DIR="/qt/install/loccation/6.x.x/6.x.x/gcc_64/lib/cmake/Qt6" -DCMAKE_INSTALL_PREFIX="../release"
+$ mkdir build
+$ cd build
+$ cmake .. -DCMAKE_PREFIX_PATH=/qt/install/location/6.x.x/6.x.x/gcc_64/lib/cmake/Qt6 -DCMAKE_INSTALL_PREFIX="../release"
 $ cmake --build ./
 $ cmake --install ./
 ```
 
+Or if you want to build without the demos and tests:
+```sh
+$ mkdir build
+$ cd build
+$ cmake .. -DBUILD_TESTS=OFF -DBUILD_DEMOS=OFF -DCMAKE_PREFIX_PATH=/qt/install/location/6.x.x/6.x.x/gcc_64/lib/cmake/Qt6 -DCMAKE_INSTALL_PREFIX="../release"
+$ cmake --build ./
+```
+
 ### Building with QMake
 
-To build the project with QMake run the following comamnds:
+To build the project with QMake run the following commands:
 ```sh
-$ /qt/install/loccation/6.x.x/6.x.x/gcc_64/bin/qmake .
+$ /qt/install/location/6.x.x/6.x.x/gcc_64/bin/qmake .
 $ make
 ```
 
