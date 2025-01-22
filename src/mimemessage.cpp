@@ -24,6 +24,15 @@
 #include "quotedprintable.h"
 #include "mimemultipart.h"
 #include <typeinfo>
+#include <iomanip>
+#include <sstream>
+
+static QByteArray quoteByteArray(const QByteArray& source)
+{
+  std::ostringstream stream;
+  stream << std::quoted(source.toStdString());
+  return QByteArray::fromStdString(stream.str());
+}
 
 /* [1] Constructors and Destructors */
 
@@ -175,7 +184,7 @@ QString MimeMessage::toString() const
 
 QByteArray MimeMessage::formatAddress(const EmailAddress &address, MimePart::Encoding encoding) {
     QByteArray result;
-    result.append(format(address.getName(), encoding));
+    result.append(quoteByteArray(format(address.getName(), encoding)));
     result.append((" <" + address.getAddress() + ">").toUtf8());
     return result;
 }
