@@ -21,9 +21,11 @@
 
 /* [1] Constructors and Destructors */
 
-MimeAttachment::MimeAttachment(QFile *file)
+MimeAttachment::MimeAttachment(QFile *file, const QString& filename)
     : MimeFile(file)
 {
+    if (filename != "")
+      this->cName = filename;
     this->headerLines += "Content-disposition: attachment; filename=\"" + cName + "\"\r\n";
 }
 
